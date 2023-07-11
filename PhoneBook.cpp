@@ -1,4 +1,7 @@
 #include<iostream>
+#include <iomanip>
+#include <vector>
+#include <string>
 #include<fstream>
 #include <sstream>
 using namespace std;
@@ -26,30 +29,34 @@ class ContactBook
 	    	if(head==NULL)
 	    	{
     	    	Node *newer= new Node;
-	    	    cout<<"  Name of Contact: ";
-		        cin>>x;
-		        newer->name=x;
+                cout << "Name of Contact: ";
+                cin.ignore(); 
+                getline(cin, x);
+                newer->name = x;
+                cout << "Phone Number: ";
+                cin >> y;
+                cin.ignore(); 
+                 
 
-    		    cout<<"  Phone Number: ";
-	    	    cin>>y;
 		        newer->phone_number=y;
 	
 		        newer->next=NULL;
 		        newer->prev==NULL;
 		        head=newer;
 		        
-		        cout<<"  Contact Added"<<endl;
+		        cout<<endl<<"UPDATE :    **Contact Added**"<<endl;
 		    }
 		    else
 		    {
 			
 		        Node *newer= new Node;
-	    	    cout<<"  Name of Contact: ";
-		        cin>>x;
-		        newer->name=x;
-
-    		    cout<<"  Phone Number: ";
-	    	    cin>>y;
+	    	    cout << "Name of Contact: ";
+                cin.ignore(); 
+                getline(cin, x);
+                newer->name = x;
+                cout << "Phone Number: ";
+                cin >> y;
+                cin.ignore(); 
 		        newer->phone_number=y;
 		        
 		        newer->next=NULL;
@@ -61,7 +68,7 @@ class ContactBook
 		    	}
 		    	temp->next=newer;
 		    	newer->prev=temp;
-		    	cout<<"  Contact Added"<<endl;
+		    	cout<<endl<<"UPDATE :    **Contact Added**"<<endl;
 			}
 		}
     	void Display()
@@ -71,46 +78,50 @@ class ContactBook
 	    	
 	    	if(temp==NULL)
 	    	{
-		    	cout<<"  No Contacts... Please Add Some Contacts"<<endl;
-		    	cout<<"  Thanks"<<endl;
+		    	cout<<endl<<"Error : No Contacts... Please Add Some Contacts"<<endl;
 	    	}
 	    	else
 	    	{
 	    		BubbleSort();
-	    		cout<<"  Name: "<<"      Number: \n"<<endl;
+				cout <<endl<< "------------------------------" << endl;
+	    		cout << left << setw(20) << "     Name"<< "  Number" << endl;
+                cout << "------------------------------" << endl;
 	        	while(temp!=NULL)
 	        	{
 	        	    count++;
-		        	cout<<"  "<<temp->name;
-		        	cout<<"          "<<temp->phone_number<<endl;
+                    cout <<setw(20) << temp->name<< temp->phone_number <<endl;
     		    	temp=temp->next;		
 	        	}
-	        	cout<<"  Total contacts: "<<count<<endl;
+				cout << "------------------------------" << endl;
+	        	cout<<"     Total contacts : "<<count<<endl;
+				cout << "------------------------------" <<endl;
 	    	}
     	}
     	int Search()
     	{
     		bool check=false;
 	    	Node *temp=head;
-	    	cout<<"***********"<<endl;
-	    	cout<<"  Press 1 if you want to Search By Name."<<endl;
-	    	cout<<"  Press 2 if you want to Search By Number."<<endl;
+	    	cout<<"***************************************"<<endl;
+	    	cout<<"Press 1 if you want to Search By Name"<<endl;
+	    	cout<<"Press 2 if you want to Search By Number"<<endl;
+			cout<<"***************************************"<<endl;
 	    	int command;
-	    	cout<<"  Enter the Command: ";
+	    	cout<<"Enter the Command : ";
 	    	cin>>command;
 	  
 	    	if(command==1 && temp!=NULL)
 	    	{
-	    		cout<<"  Enter the Name to Search: ";
-	    		cin>>x;
+	    		cout<<"Enter the Name to Search : ";
+				cin.ignore();
+	    		getline(cin,x);
 		    	while(temp!=NULL)
 		    	{
 		        	if(temp->name==x)
 		        	{
-		        		cout<<"***********"<<endl;
-		        		cout<<"  Name: "<<temp->name<<endl;
-		        		cout<<"  Phone Number:"<<temp->phone_number<<endl;
-		        		cout<<"***********"<<endl;
+		        		// cout<<"***********"<<endl;
+		        		cout<<endl<<"# Name : "<<temp->name<<endl;
+		        		cout<<"# Phone Number :"<<temp->phone_number<<endl;
+		        		// cout<<"***********"<<endl;
 		        		check=true;
 		        		break;
 		        	}
@@ -118,22 +129,23 @@ class ContactBook
 	        	}
 	        	if(check==false)
 	        	{
-	        		cout<<"  Name Not Found"<<endl;
+	        		cout<<"Error : Name Not Found!!"<<endl;
 				}
 	    	}
 	    	else if(command==2)
 	    	{
-	    		cout<<"  Enter the Number to Search: ";
+	    		cout<<"Enter the Number to Search : ";
 	    		cin>>y;
+				cin.ignore();
 				
 	    		while(temp!=NULL)
 	    		{
 	    	    	if(temp->phone_number==y)
 		        	{
-		        		cout<<"***********"<<endl;
-		        		cout<<"  Name: "<<temp->name<<endl;
-		        		cout<<"  Phone Number: "<<temp->phone_number<<endl;
-		        		cout<<"***********"<<endl;
+		        		// cout<<"***********"<<endl;
+		        		cout<<endl<<"# Name: "<<temp->name<<endl;
+		        		cout<<"# Phone Number: "<<temp->phone_number<<endl;
+		        		// cout<<"***********"<<endl;
 		        		check=true;
 		        		break;
 		        	}
@@ -141,7 +153,7 @@ class ContactBook
 	        	}
 				if(check==false)
 				{
-					cout<<"  Number Not Found"<<endl;	
+					cout<<"Error : Number Not Found!!"<<endl;	
 				}	
 	    	}
 	    }
@@ -151,8 +163,7 @@ class ContactBook
 	    	Node *temp2;
 	    	if(head==NULL)
 	    	{
-	    		cout<<"  Already Contact Book is Empty"<<endl;
-	    		cout<<"***********"<<endl;
+	    		cout<<"Error : Already Contact Book is Empty!!"<<endl;
 			}
 			else
 			{
@@ -163,8 +174,7 @@ class ContactBook
 					delete temp2;
 				}
 				head=NULL;
-				cout<<"  Successfully Deleted All Contacts"<<endl;
-	    		cout<<"***********"<<endl;
+				cout<<"UPDATE :     ***Successfully Deleted All Contacts***"<<endl;
 			}
 		}
 		
@@ -172,26 +182,28 @@ class ContactBook
     	{
     		
 	    	Node *temp=head;
-	    	cout<<"***********"<<endl;
-	    	cout<<"  Press 1 if you want to Search By name"<<endl;
-	    	cout<<"  Press 2 if you want to Search By Number"<<endl;
+	    	cout<<"***************************************"<<endl;
+	    	cout<<"Press 1 if you want to Search By Name"<<endl;
+	    	cout<<"Press 2 if you want to Search By Number"<<endl;
+			cout<<"***************************************"<<endl<<endl;
 	    	int command;
-	    	cout<<"  Enter the Command: ";
+	    	cout<<"Enter the Command: ";
 	    	cin>>command;
 	  
 	    	if(command==1)
 	    	{
 	    		bool Dcheck=false;
-	    		cout<<"  Enter the Name to Delete: ";
-	    		cin>>x;
+	    		cout<<"Enter the Name to Delete: ";
+	    		cin.ignore(); 
+                getline(cin, x);
 	    		while(temp!=NULL)
 	    		{
 	    	    	if(temp->name==x)
 		        	{
-		        		cout<<"***********"<<endl;
-		        		cout<<"  Name: "<<temp->name<<endl;
-		        		cout<<"  Phone Number: "<<temp->phone_number<<endl;
-		        		cout<<"***********"<<endl;
+		        		// cout<<"***********"<<endl;
+		        		cout<<endl<<"# Name: "<<temp->name<<endl;
+		        		cout<<"# Phone Number: "<<temp->phone_number<<endl;
+		        		// cout<<"***********"<<endl;
 		        		Dcheck=true;
 		        		break;
 		        	}
@@ -200,7 +212,7 @@ class ContactBook
 	        	if(Dcheck==true)
 	        	{
 	            	int command;
-	            	cout<<"  Press 1 to Delete the Contact: ";
+	            	cout<<"Press 1 to Delete the Contact: ";
 	            	cin>>command;
 	            	if(command==1 & temp==head)
 	            	{
@@ -211,13 +223,13 @@ class ContactBook
 	        		
 	            		temp->prev=NULL;
 	            		head=temp;
-	            		cout<<"  Contact Deleted Success Fully"<<endl;
+	            		cout<<"UPDATE :     ***Contact Deleted Successfully***"<<endl;
 			    	}
 			    	else if(command==1 & temp->next==NULL)
 			    	{
 			    		temp->prev->next=NULL;
 			    		delete temp;
-			    		cout<<"  Contact Deleted Success Fully"<<endl;
+			    		cout<<"UPDATE :     ***Contact Deleted Successfully***"<<endl;
 			    	}
 			    	else if(command==1)
 			    	{
@@ -226,31 +238,32 @@ class ContactBook
 			    		temp->prev->next=temp1->next;
 			    		temp->next->prev=temp1->prev;
 			    		delete temp1;
-			    		cout<<"  Contact Deleted Success Fully"<<endl;	
+			    		cout<<"UPDATE :     ***Contact Deleted Successfully***"<<endl;
 			    	}
 			    	else
 			    	{
-			    		cout<<"  You Enter Wrong Command ... Try Again"<<endl;
+			    		cout<<"Error : You Enter Wrong Command .... Try Again!"<<endl;
 		    		}
 	            }
 	            else if(Dcheck==false)
 				{
-					cout<<"  Contact of This Name Not Found."<<endl;
+					cout<<"Error :  Contact of This Name Not Found"<<endl;
 			    }  
 	    	}
 	    	else if(command==2)
 	    	{
 	    		bool Dcheck=false;
-	    		cout<<"  Enter the Number to Delete: ";
+	    		cout<<"Enter the Number to Delete: ";
 	    		cin>>y;
+				cin.ignore();
 	    		while(temp!=NULL)
 	    		{
 	    	    	if(temp->phone_number==y)
 		        	{
-		        		cout<<"***********"<<endl;
-		        		cout<<"name: "<<temp->name<<endl;
-		        		cout<<"Phone Number: "<<temp->phone_number<<endl;
-		        		cout<<"***********"<<endl;
+		        		//cout<<"***********"<<endl;
+		        		cout<<endl<<"# Name: "<<temp->name<<endl;
+		        		cout<<"# Phone Number: "<<temp->phone_number<<endl;
+		        		//cout<<"***********"<<endl;
 		        		Dcheck=true;
 		        		break;
 		        	}
@@ -259,7 +272,7 @@ class ContactBook
 	        	if(Dcheck==true)
 	        	{
 	            	int command;
-	            	cout<<"  Press 1 to Delete the Contact: ";
+	            	cout<<"Press 1 to Delete the Contact : ";
 	        	    cin>>command;
     	        	if(command==1 & temp==head)
 	            	{
@@ -270,13 +283,13 @@ class ContactBook
 	        		
     	        		temp->prev=NULL;
 	            		head=temp;
-	            		cout<<"  Contact Deleted Success Fully"<<endl;
+	            		cout<<"UPDATE :     ***Contact Deleted Successfully***"<<endl;
 			    	}
 				    else if(command==1 & temp->next==NULL)
     				{
 	    				temp->prev->next=NULL;
 		    			delete temp;
-			    		cout<<"  Contact Deleted Success Fully"<<endl;
+			    		cout<<"UPDATE :     ***Contact Deleted Successfully***"<<endl;
 				    }
 				    else if(command==1)
     				{
@@ -285,21 +298,21 @@ class ContactBook
 			    		temp->prev->next=temp1->next;
 				    	temp->next->prev=temp1->prev;
 					    delete temp1;
-		    			cout<<"  Contact Deleted Success Fully"<<endl;	
+		    			cout<<"UPDATE :     ***Contact Deleted Successfully***"<<endl;	
 			    	}
 				    else
 				    {
-				    	cout<<"  You Enter Wrong Command ... Try Again"<<endl;
+				    	cout<<"Error : You Enter Wrong Command .... Try Again!"<<endl;
 				    }
 	            }
 	            else if(Dcheck==false)
 				{
-					cout<<"  Contact of This Name Not Found."<<endl;
+					cout<<"Error : Contact of This Name Not Found."<<endl;
 				}
 	    	}
 	    	else
 	    	{
-	    		cout<<"  You Enter wrong Command"<<endl;
+	    		cout<<"Error : You Enter wrong Command!"<<endl;
 			}
 	    }
 	    void BubbleSort()
@@ -310,7 +323,7 @@ class ContactBook
             long long int n2;
             if(temp=NULL)
             {
-            	cout<<"  Empty contact Book"<<endl;
+            	cout<<"Error : It's an Empty ContactBook!"<<endl;
 			}
 			else
 			{
@@ -337,26 +350,28 @@ class ContactBook
         int EditContacts()
     	{
 	    	Node *temp=head;
-	    	cout<<"***********"<<endl;
-	    	cout<<"  Press 1 if you want to Search By Name"<<endl;
-	    	cout<<"  Press 2 if you want to Search By Number"<<endl;
+	    	cout<<endl<<"*****************************************"<<endl;
+	    	cout<<"Press 1 if you want to Search By Name"<<endl;
+	    	cout<<"Press 2 if you want to Search By Number"<<endl;
+			cout<<"*****************************************"<<endl;
 	    	int Ecommand;
-	    	cout<<"  Enter the Command: ";
+	    	cout<<"Enter the Command: ";
 	    	cin>>Ecommand;
 	  
 	    	if(Ecommand==1)
 	    	{
 	    		bool Echeck=false;
-	    		cout<<"  Enter the Name to Edit: ";
-	    		cin>>x;
+	    		cout<<"Enter the Name to Edit: ";
+	    		cin.ignore();
+				getline(cin,x);
 	    		while(temp!=NULL)
 	    		{
 	    	    	if(temp->name==x)
 		        	{
-		        		cout<<"***********"<<endl;
-		        		cout<<"Name: "<<temp->name<<endl;
-		        		cout<<"Phone Number: "<<temp->phone_number<<endl;
-		        		cout<<"***********"<<endl;
+		        		//cout<<"***********"<<endl;
+		        		cout<<endl<<"# Name: "<<temp->name<<endl;
+		        		cout<<"# Phone Number: "<<temp->phone_number<<endl;
+		        		//cout<<"***********"<<endl;
 		        		Echeck=true;
 		        		break;
 		        	}
@@ -365,43 +380,46 @@ class ContactBook
 	        	if(Echeck==true)
 	        	{
 	            	int command;
-	        	    cout<<"  Press 1 to Edit the Contact: ";
+	        	    cout<<"Press 1 to Edit the Contact : ";
 	            	cin>>command;
 	        	    if(command==1)
 	        	    {
 	        		    cout<<"  Enter New Name: ";
-    	        		cin>>x;
+						cin.ignore();
+    	        		getline(cin,x);
 	            		cout<<"  Enter New Number: ";
 	            		cin>>y;
+						cin.ignore();
 	        		
 	            		temp->name=x;
 	        	    	temp->phone_number=y;
 	        		
-	        		    cout<<"  Contact Edited Success Fully"<<endl;
+	        		    cout<<"***Contact Edited Successfully***"<<endl;
 			    	}
 			    	else
 			    	{
-					    cout<<"  You Enter Wrong Command ... Try Again"<<endl;
+					    cout<<"Error : You Enter Wrong Command .... Try Again!!"<<endl;
 	    	        }
 	    	    }
 	    	    else if(Echeck==false)
 	    	    {
-	    	    	cout<<"  Contact Not Found"<<endl;
+	    	    	cout<<"Error : Contact Not Found!!"<<endl;
 				}
 	        }
 	    	else if(Ecommand==2)
 	    	{
 	    		bool Echeck=false;
-	    		cout<<"  Enter the Number to Edit: ";
+	    		cout<<"Enter the Number to Edit : ";
 	    		cin>>y;
+				cin.ignore();
 	    		while(temp!=NULL)
 	    		{
 	    	    	if(temp->phone_number==y)
 		        	{
-		        		cout<<"***********"<<endl;
-		        		cout<<"Name: "<<temp->name<<endl;
-		        		cout<<"Phone Number: "<<temp->phone_number<<endl;
-		        		cout<<"***********"<<endl;
+		        		//cout<<"***********"<<endl;
+		        		cout<<endl<<"# Name: "<<temp->name<<endl;
+		        		cout<<"# Phone Number: "<<temp->phone_number<<endl;
+		        		//cout<<"***********"<<endl;
 		        		Echeck=true;
 		        		break;
 		        	}
@@ -410,33 +428,35 @@ class ContactBook
 	        	if(Echeck==true)
 	        	{
 	            	int command;
-	        	    cout<<"  Press 1 to Edit the Contact: ";
+	        	    cout<<"Press 1 to Edit the Contact : ";
 	            	cin>>command;
 	        	    if(command==1)
 	        	    {
-	        		    cout<<"  Enter New Name: ";
-    	        		cin>>x;
-	            		cout<<"  Enter New Number: ";
+	        		    cout<<"Enter New Name : ";
+						cin.ignore();
+    	        		getline(cin,x);
+	            		cout<<"Enter New Number : ";
 	            		cin>>y;
+						cin.ignore();
 	        		
 	            		temp->name=x;
 	        	    	temp->phone_number=y;
 	        		
-	        		    cout<<"  Contact Edited Success Fully"<<endl;
+	        		    cout<<"***Contact Edited Successfully***"<<endl;
 			    	}
 			    	else
 			    	{
-					    cout<<"  You Enter Wrong Command"<<endl;
+					    cout<<"Error : You Enter Wrong Command!!"<<endl;
 	    	        }
 	        	}
 	        	else if(Echeck==false)
 	        	{
-	        	    cout<<"  There is No Contact of this Number."<<endl;
+	        	    cout<<"Error : There is No Contact of this Number!!"<<endl;
 	            }
 	        }
 	        else
 			{
-			    cout<<"  You Enter Wrong Command ... Try Again"<<endl;
+			    cout<<"Error : You Enter Wrong Command .... Try Again!!"<<endl;
 			}
 	    }
 	
@@ -458,7 +478,7 @@ class ContactBook
             }
             else
             {
-            	cout<<"  Thanks file is empty."<<endl;
+            	cout<<"Thanks file is empty!"<<endl;
 			}
 		}
 		
@@ -529,22 +549,22 @@ class ContactBook
             }
             else
             {
-            	cout<<"  File is Empty so Cannot open...Sorry"<<endl;
+            	cout<<"Error : File is Empty so Cannot open .... Sorry!!"<<endl;
 			}
 		}
 		void Structure()
     	{
-	    	cout<<"***********"<<endl;
-	    	cout<<"  1. Add Contact"<<endl;
-	    	cout<<"  2. Edit the Contact"<<endl;
-	    	cout<<"  3. Delete Contact"<<endl;
-	    	cout<<"  4. Search Contact"<<endl;
-	    	cout<<"  5. Display All Contacts"<<endl;
-	    	cout<<"  6. Delete All Contacts"<<endl;
-	    	cout<<"***********"<<endl;
+	    	cout<<endl<<" ****************************"<<endl;
+	    	cout<<" *  1. Add Contact          *"<<endl;
+	    	cout<<" *  2. Edit the Contact     *"<<endl;
+	    	cout<<" *  3. Delete Contact       *"<<endl;
+	    	cout<<" *  4. Search Contact       *"<<endl;
+	    	cout<<" *  5. Display All Contacts *"<<endl;
+	    	cout<<" *  6. Delete All Contacts  *"<<endl;
+	    	cout<<" ****************************"<<endl<<endl;
 		
 	    	int Scommand;
-	    	cout<<"  Enter the Command: ";
+	    	cout<<endl<<"Enter your Choice : ";
 	    	cin>>Scommand;
 	    	try
 	    	{
@@ -592,7 +612,7 @@ class ContactBook
 			}
 			catch(int Scommand)
 			{
-				cout<<"  You Enter wrong Command... Run the Code Again"<<endl;
+				cout<<"Error : You Enter wrong Command .... Run the Code Again!!"<<endl;
 				Structure();
 			}	
 	    }
@@ -604,12 +624,16 @@ int main()
     ContactBook cb;
     cb.reopenCB();
 	string n;
-	cout<<"  What is Your Name: ";
-	cin>>n;
-	
-    cout<<"***********"<<endl;
-	cout<<"  "<<n<<"  WELCOME TO CONTACTBOOK      "<<endl;
-	cout<<"***********"<<endl;
+	cout<<"What is Your Name : ";
+	getline(cin,n);
+	int len = n.length()+29;
+    cout<<"                                   ";
+    for(int i=0; i<len; i++) cout<<"*";
+    cout<<endl;
+	cout<<"                                   * WELCOME TO " << n <<"'s CONTACTBOOK *      "<<endl;
+	cout<<"                                   ";
+    for(int i=0; i<len; i++) cout<<"*";
+    cout<<endl<<endl<<endl;
 	cb.Structure();
 	return 0;
 }
